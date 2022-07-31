@@ -3,7 +3,8 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { UserModule } from './modules/user/user.module';
-
+import { CoffeeModule } from './modules/coffee/coffee.module';
+import { OrderModule } from './modules/order/order.module';
 
 @Module({
   imports: [
@@ -22,6 +23,8 @@ import { UserModule } from './modules/user/user.module';
       autoLoadEntities: true,
       synchronize: true,
     }),
+    CoffeeModule,
+    OrderModule,
   ],
 })
 export class AppModule {}

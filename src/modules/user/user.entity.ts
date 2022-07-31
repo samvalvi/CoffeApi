@@ -1,6 +1,16 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  OneToMany,
+  OneToOne,
+} from 'typeorm';
 
-@Entity()
+import { Coffee } from '../coffee/coffee.entity';
+import { Order } from '../order/order.entity';
+
+@Entity('user')
 export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -17,9 +27,15 @@ export class User {
   @Column({ default: true })
   status: boolean;
 
-  @Column({ default: new Date() })
+  @CreateDateColumn({ default: new Date(), type: 'timestamp' })
   createdAt: Date;
 
-  @Column({ default: new Date() })
+  @CreateDateColumn({ default: new Date(), type: 'timestamp' })
   updatedAt: Date;
+
+  @OneToMany(() => Coffee, (coffee) => coffee.user)
+  coffees: Coffee[];
+
+  @OneToOne(() => Order, (order) => order.user)
+  order: Order;
 }
